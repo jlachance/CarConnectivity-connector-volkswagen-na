@@ -37,7 +37,7 @@ class MyVWSession(VWWebSession):
     """
     def __init__(self, session_user, **kwargs) -> None:
         super(MyVWSession, self).__init__(client_id='59992128-69a9-42c3-8621-7942041ba824_MYVW_ANDROID',
-                                               refresh_url='https://b-h-s.spr.us00.p.con-veh.net/oidc/v1/token',
+                                               refresh_url='https://b-h-s.spr.ca00.p.con-veh.net/oidc/v1/token',
                                                scope='openid',
                                                redirect_uri='kombi:///login',
                                                state=None,
@@ -83,19 +83,19 @@ class MyVWSession(VWWebSession):
     def login(self):
         super(MyVWSession, self).login()
         # retrieve authorization URL
-        authorization_url_str: str = self.authorization_url(url='https://b-h-s.spr.us00.p.con-veh.net/oidc/v1/authorize')
+        authorization_url_str: str = self.authorization_url(url='https://b-h-s.spr.ca00.p.con-veh.net/oidc/v1/authorize')
         # perform web authentication
         response = self.do_web_auth(authorization_url_str)
         print("Authentication response 1: ", response)
         # fetch tokens from web authentication response
-        self.fetch_tokens('https://b-h-s.spr.us00.p.con-veh.net/oidc/v1/token',
+        self.fetch_tokens('https://b-h-s.spr.ca00.p.con-veh.net/oidc/v1/token',
                           authorization_response=response)
 
     def refresh(self) -> None:
         # refresh tokens from refresh endpoint
         token = self.token
         self.refresh_tokens(
-            'https://b-h-s.spr.us00.p.con-veh.net/oidc/v1/token'
+            'https://b-h-s.spr.ca00.p.con-veh.net/oidc/v1/token'
         )
 
     def authorization_url(self, url, state=None, **kwargs) -> str:
@@ -182,9 +182,9 @@ class MyVWSession(VWWebSession):
             }
         print('Requesting token', token_data, token_headers)
 
-        response = self.websession.post('https://b-h-s.spr.us00.p.con-veh.net/oidc/v1/token', data=token_data, headers=token_headers)
+        response = self.websession.post('https://b-h-s.spr.ca00.p.con-veh.net/oidc/v1/token', data=token_data, headers=token_headers)
 
-        #response = self.websession.post('https://b-h-s.spr.us00.p.con-veh.net/oidc/v1/token', data=token_data)
+        #response = self.websession.post('https://b-h-s.spr.ca00.p.con-veh.net/oidc/v1/token', data=token_data)
         print('Token response', response, response.content)
         print('Token request', response.request.body, response.request.headers)
 
